@@ -1,0 +1,97 @@
+AddDefaultCharset UTF-8
+
+RewriteEngine on
+RewriteBase /
+
+# Обработка ошибок
+ErrorDocument 400 /404.php
+ErrorDocument 403 /404.php
+ErrorDocument 404 /404.php
+ErrorDocument 405 /404.php
+ErrorDocument 408 /404.php
+ErrorDocument 500 /404.php
+ErrorDocument 502 /404.php
+ErrorDocument 504 /404.php
+
+# Разрешить ссылки без расширения .php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+# Удалить со ссылки расширение .php если был запрос с расширением (не загружается инфа о сервере на главной)
+#RewriteCond %{THE_REQUEST} ([^\s]*)\.php(\?[^\s]*)?
+#RewriteRule (.*) %1 [R=301,L]
+
+# Редирект с www на без
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Запретить доступ к файлам начинающимся с .
+<FilesMatch "^\.">
+	Order allow,deny
+	Deny from all
+</FilesMatch>
+
+# Запретить доступ к директориям
+Options -Indexes
+IndexIgnore *
+
+# Запретить доступ к файлам директорий (не работает AJAX)
+#RewriteRule ^core/.*$ - [F,L]
+#RewriteRule ^pages/.*$ - [F,L]
+#RewriteRule ^partials/.*$ - [F,L]
+#RewriteRule ^source/.*$ - [F,L]
+#RewriteRule ^SourceQuery/.*$ - [F,L]
+
+# Запрещаем GLOBALS и _REQUEST запросы
+Options +FollowSymLinks
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+RewriteRule ^(.*)$ index.php [F,L]
+
+# Кеширование
+<ifModule mod_expires.c>
+# Add correct content-type for fonts
+	AddType application/vnd.ms-fontobject .eot
+	AddType application/x-font-ttf .ttf
+	AddType application/x-font-opentype .otf
+	AddType application/x-font-woff .woff
+	AddType image/svg+xml .svg
+# Compress compressible fonts
+	AddOutputFilterByType DEFLATE application/x-font-ttf application/x-font-opentype image/svg+xml
+	ExpiresActive On
+	#ExpiresDefault "access plus 60 seconds"
+# Cache Images
+	ExpiresByType image/x-icon "access plus 2592000 seconds"
+	ExpiresByType image/jpeg "access plus 2592000 seconds"
+	ExpiresByType image/png "access plus 2592000 seconds"
+	ExpiresByType image/gif "access plus 2592000 seconds"
+	ExpiresByType image/svg+xml "access plus 2592000 seconds"
+# Cache Fonts
+	ExpiresByType application/vnd.ms-fontobject "access plus 2592000 seconds"
+	ExpiresByType application/x-font-ttf "access plus 2592000 seconds"
+	ExpiresByType application/x-font-opentype "access plus 2592000 seconds"
+	ExpiresByType application/x-font-woff "access plus 2592000 seconds"
+	ExpiresByType image/svg+xml "access plus 2592000 seconds"
+# Cache other content types (Flash, CSS, JS, HTML, XML)
+	ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
+	ExpiresByType text/css "access plus 604800 seconds"
+	ExpiresByType text/javascript "access plus 2592000 seconds"
+	ExpiresByType application/javascript "access plus 2592000 seconds"
+	ExpiresByType application/x-javascript "access plus 2592000 seconds"
+#	ExpiresByType text/html "access plus 600 seconds"
+	ExpiresByType application/xhtml+xml "access plus 600 seconds"
+</ifModule>
+
+<ifModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml application/xhtml+xml text/css text/javascript application/javascript application/x-javascript
+</ifModule>
+
+<IfModule mod_headers.c>
+	Header set Referrer-Policy "same-origin"
+	Header set X-Frame-Options "SAMEORIGIN"
+	Header set X-XSS-Protection "1; mode=block"
+	Header set X-Content-Type-Options "nosniff"
+	Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+	Header set Feature-Policy "geolocation 'self'; vibrate 'none'"
+</IfModule>
