@@ -33,9 +33,9 @@
 ## Требования игрового сервера
 <ul>
   <li>SlimSomeUED.amxx (автор: szawesome, проверялось с версией: 1.0)</li>
-  <li>Fresh Bans (автор: mazdan, проверялось с версией: 1.4.3)</li>
-  <li>StatsX (автор: любой, проверялось с плагином: AES: StatsX CStrike 0.5+1)</li>
-  <li>Chat Manager (автор: Mistrick, проверялось с версией: 1.1.2-16)</li>
+  <li><a href="https://dev-cs.ru/resources/196/" target="_blank">Fresh Bans</a> (автор: mazdan, проверялось с версией: 1.4.3)</li>
+  <li><a href="https://dev-cs.ru/resources/178/" target="_blank">StatsX</a> (автор: любой, проверялось с плагином: AES: StatsX CStrike 0.5+1)</li>
+  <li><a href="https://dev-cs.ru/resources/112/" target="_blank">Chat Manager</a> (автор: Mistrick, проверялось с версией: 1.1.2-16)</li>
 </ul>
 
 ## Требования web окружения
