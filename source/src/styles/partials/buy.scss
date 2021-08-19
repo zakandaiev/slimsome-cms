@@ -1,0 +1,114 @@
+.buy-content {
+  display: flex;
+  justify-content: space-between;
+  &__left, &__right {
+    width: 48%;
+  }
+  &__img {
+    @extend .well;
+    @extend .well_primary;
+    padding: 0;
+    margin-bottom: 30px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  @media (max-width: 991px) {
+    flex-wrap: wrap;
+    &__left, &__right {
+      width: 100%;
+    }
+    &__left {
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.carousel {
+  display: block;
+  width: 100%;
+  min-height: 140px;
+  position: relative;
+  &__prev, &__next {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    width: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all .3s;
+    &:hover {
+      opacity: 1;
+    }
+    &.slick-disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    svg, img {
+      width: 26px;
+      height: 26px;
+    }
+  }
+  &__prev {
+    left: 0;
+  }
+  &__next {
+    right: 0;
+  }
+  &__nav {
+    // resets
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    * {
+      margin: 0;
+      padding: 0;
+      background: none;
+      box-shadow: none;
+      border: none;
+      outline: none;
+    }
+
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    height: 28px;
+    li {
+      // resets
+      margin: 0 5px;
+      padding: 0;
+      * {
+        font-size: 0;
+      }
+
+      display: flex;
+      align-items: center;
+      width: 30px;
+      height: 100%;
+      cursor: pointer;
+      button {
+        display: block;
+        width: 100%;
+        height: 3px;
+        border-radius: 0.2rem;
+        background: #fff;
+        cursor: pointer;
+      }
+      opacity: 0.5;
+      transition: all .3s;
+      &.slick-active {
+        opacity: 1;
+      }
+    }
+  }
+}

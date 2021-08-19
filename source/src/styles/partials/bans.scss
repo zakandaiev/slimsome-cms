@@ -1,0 +1,22 @@
+.bans-stats {
+  display: flex;
+  justify-content: space-between;
+  &__col {
+    width: 30%;
+  }
+  @media (max-width: 991px) {
+    flex-wrap: wrap;
+    &__col {
+      width: 100%;
+      &:not(:last-child) {
+        margin-bottom: 50px;
+      }
+    }
+  }
+}
+
+.table-widget-top {
+  thead th {
+    border-bottom: $border;
+  }
+}

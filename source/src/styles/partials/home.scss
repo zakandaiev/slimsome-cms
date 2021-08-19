@@ -1,0 +1,270 @@
+.home-content {
+  display: flex;
+  justify-content: space-between;
+  &__left, &__right {
+    width: 48%;
+  }
+  @media (max-width: 991px) {
+    flex-wrap: wrap;
+    &__left, &__right {
+      width: 100%;
+    }
+    &__left {
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.widget-online {
+  display: block;
+  width: 100%;
+  &__top {
+    display: flex;
+    margin-bottom: 30px;
+  }
+  &__img {
+    display: block;
+    width: 50%;
+    margin-right: 10%;
+    border-radius: $brs;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 2px 3px rgba(0,0,0,0.24);
+    object-fit: cover;
+  }
+  &__info {
+    width: 40%;
+  }
+  &__indicator {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: #00b100;
+    margin-right: 10px;
+    animation-name: anim_blink;
+    animation-duration: 3s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    &.offline {
+      background-color: #ff1a1a;
+    }
+  }
+  &__players {
+    .loader {
+      display: block;
+      margin: 0 auto;
+    }
+    .avatar {
+      margin-left: 5px;
+      border-radius: 50%;
+      vertical-align: text-bottom;
+    }
+  }
+  @media (max-width: 480px) {
+    &__top {
+      flex-wrap: wrap;
+    }
+    &__img, &__info {
+      width: 100%;
+      margin-right: 0;
+    }
+    &__img {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+@keyframes anim_blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.chat {
+  @extend .well;
+  display: block;
+  width: 100%;
+  &__messages {
+    display: block;
+    width: 100%;
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    //scroll-behavior: smooth;
+  }
+  &__message {
+    display: flex;
+    width: 100%;
+    padding: 10px 0;
+    &:not(:first-child) {
+      border-top: $border;
+    }
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--accent-color-2);
+      transition: all .3s;
+      opacity: 0;
+      visibility: hidden;
+    }
+    &.highlight::after {
+      opacity: 0.5;
+      visibility: visible;
+    }
+    .avatar {
+      border-radius: 50%;
+      height: 50px;
+      width: 50px;
+      margin-right: 15px;
+      background-color: var(--accent-color);
+      object-fit: cover;
+    }
+    .message {
+      display: block;
+      width: 100%;
+      max-width: calc(100% - 65px);
+    }
+    .info {
+      display: flex;
+      justify-content: space-between;
+    }
+    .author {
+      font-weight: 700;
+      margin-right: 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .date {
+      font-size: 80%;
+      color: #888;
+      text-align: right;
+    }
+    .anchor {
+      font-weight: 600;
+    }
+    [data-del-chat] {
+      cursor: pointer;
+    }
+    .text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  &__write {
+    margin-top: 15px;
+    .form {
+      flex-direction: row;
+      align-items: stretch;
+      input {
+        margin: 0;
+      }
+      input[type="submit"] {
+        width: 30%;
+        margin-left: 15px;
+      }
+    }
+  }
+  #reply_info {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+  }
+  #reply_remove {
+    cursor: pointer;
+  }
+  &__input {
+    display: block;
+    width: 100%;
+    position: relative;
+    input {
+      width: 100%;
+      height: 100%;
+      padding-right: 32px;
+    }
+    svg {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 6px;
+      fill: #ddd;
+      cursor: pointer;
+      transition: all .3s;
+      &:hover, &.active {
+        fill: var(--accent-color-2);
+        & + .chat__smiles {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+  }
+  &__smiles {
+    position: absolute;
+    z-index: 1;
+    bottom: 50%;
+    right: 0;
+    padding-bottom: 18px;
+    // appearance
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+    &:hover {
+      opacity: 1;
+      visibility: visible;
+      & ~ svg {
+        fill: var(--accent-color-2);
+      }
+    }
+  }
+  .smiles {
+    display: flex;
+    flex-wrap: wrap;
+    width: 160px;
+    max-height: 260px;
+    overflow: hidden auto;
+    padding: 8px;
+    background: #fff;
+    border-radius: $brs;
+    box-shadow: 0 3px 4px rgba(10, 31, 68, 0.1), 0 0 1px rgba(10, 31, 68, 0.08);
+    &__item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 36px;
+      height: 36px;
+      padding: 5px;
+      border-radius: $brs;
+      cursor: pointer;
+      transition: all .3s;
+      &:hover {
+        background: #eee;
+      }
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+  // chat for logged users
+  &_for-logged .chat__messages {
+    .avatar, .author {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+@mixin font($fname, $fstyle, $fweight, $furl) {
+  @font-face {
+    font-family: $fname;
+    font-style: $fstyle;
+    font-weight: $fweight;
+    font-display: swap;
+    src: local($fname), url($furl) format('truetype');
+  }
+}
+
+@include font('Raleway', normal, 400, '../fonts/Raleway-Regular.ttf');
+@include font('Raleway', italic, 400, '../fonts/Raleway-Italic.ttf');
+
+@include font('Raleway', normal, 600, '../fonts/Raleway-SemiBold.ttf');
+@include font('Raleway', italic, 600, '../fonts/Raleway-SemiBoldItalic.ttf');
+
+@include font('Raleway', normal, 700, '../fonts/Raleway-Bold.ttf');
+@include font('Raleway', italic, 700, '../fonts/Raleway-BoldItalic.ttf');

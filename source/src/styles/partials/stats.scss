@@ -1,0 +1,366 @@
+// STATS ALL PAGE
+.table-stats {
+  .avatar {
+    margin-left: 5px;
+    border-radius: 50%;
+    vertical-align: text-bottom;
+  }
+  .top-1 {
+    background: url(../img/stats/gold.svg) 100% 50% no-repeat;
+    background-size: 1em;
+    padding-right: 1.2em;
+  }
+  .top-2 {
+    background: url(../img/stats/silver.svg) 100% 50% no-repeat;
+    background-size: 1em;
+    padding-right: 1.2em;
+  }
+  .top-3 {
+    background: url(../img/stats/bronze.svg) 100% 50% no-repeat;
+    background-size: 1em;
+    padding-right: 1.2em;
+  }
+}
+
+.skill {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  height: 1.8rem;
+  border-radius: $brs;
+  background-color: #fff;
+  font-size: 1rem;
+  font-weight:bold;
+  line-height: 1;
+  box-shadow: inset 0 0 3px #999;
+  span {
+    padding: 0 4px;
+  }
+  &::before {
+    content: '?';
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: $brs;
+    width: 2.4rem;
+    height: 1.8rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background: #ddd;
+  }
+  &.low-m::before {
+    content: 'L-'; 
+    background: #FCE590;
+  }
+  &.low::before {
+    content: 'L'; 
+    background: #FCE590;
+  }
+  &.low-p::before {
+    content: 'L+'; 
+    background: #FCE590;
+  }
+  &.medium-m::before {
+    content: 'M-'; 
+    background: #FFC900;
+  }
+  &.medium::before {
+    content: 'M'; 
+    background: #FFC900;
+  } 
+  &.medium-p::before {
+    content: 'M+'; 
+    background: #FFC900;
+  } 
+  &.high-m::before {
+    content: 'H-'; 
+    background: #F2880F;
+  } 
+  &.high::before {
+    content: 'H'; 
+    background: #F2880F;
+  } 
+  &.high-p::before {
+    content: 'H+'; 
+    background: #F2880F;
+  } 
+  &.profi-m::before {
+    content: 'P-'; 
+    background: #FF3333;
+    color: #FFF;
+  }
+  &.profi::before {
+    content: 'P'; 
+    background: #FF3333;
+    color: #FFF;
+  }
+  &.profi-p::before {
+    content: 'P+'; 
+    background: #FF3333;
+    color: #FFF;
+  } 
+  &.godlike::before {
+    content: 'G'; 
+    background: #000;
+    color: #FFF;
+  }
+}
+
+// STATS SINGLE PAGE
+.stats-content {
+  display: flex;
+  justify-content: space-between;
+  &__left {
+    flex-shrink: 0;
+    width: 320px;
+    margin-right: 30px;
+  }
+  &__right {
+    flex-grow: 1;
+  }
+  // MEDIA
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    &__left, &__right {
+      width: 100%;
+    }
+    &__left {
+      margin-right: 0;
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.widget-player {
+  @extend .well;
+  @extend .well_primary;
+  display: flex;
+  flex-direction: column;
+  &__info {
+    display: flex;
+  }
+  &__avatar {
+    flex-shrink: 0;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  &__rec {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  &__nick {
+    font-size: 1.4rem;
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  &__status {
+    font-weight: 600;
+    color: var(--accent-color-2);
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  &__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: $border;
+  }
+  table {
+    width: 100%;
+    td:last-child {
+      text-align: right;
+    }
+  }
+  .skill {
+    color: var(--text-color);
+  }
+}
+
+.stats-detail {
+  display: flex;
+  justify-content: space-between;
+  &__left {
+    width: 56%;
+  }
+  &__right {
+    width: 40%;
+  }
+  // MEDIA
+  @media (max-width: 991px) {
+    flex-wrap: wrap;
+    &__left, &__right {
+      width: 100%;
+    }
+    &__left {
+      margin-bottom: 50px;
+    }
+  }
+}
+
+.stats-leaf {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  &__item {
+    @extend .well;
+    position: relative;
+    width: 48%;
+    margin-bottom: 4%;
+    padding: 15px;
+  }
+  @media (max-width: 768px) {
+    &__item {
+      width: 31%;
+    }
+  }
+  @media (max-width: 480px) {
+    &__item {
+      width: 48%;
+    }
+  }
+  &__title {
+    text-align: center;
+  }
+  &__value, &__description {
+    display: block;
+    width: 100%;
+    line-height: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  &__value {
+    padding-right: 30px;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  &__description {
+    color: #cdcbc9;
+  }
+  &__icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    height: 30px;
+    img, svg {
+      max-width: 100%;
+      height: 100%;
+    }
+    img {
+      opacity: 0.3;
+    }
+    svg {
+      fill: #cdcbc9;
+    }
+  }
+}
+
+.hitbox {
+  display: block;
+  width: 100%;
+  position: relative;
+  &__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 3px 4px rgba(10, 31, 68, 0.1));
+  }
+  &__item {
+    position: absolute;
+    z-index: 1;
+    cursor: pointer;
+    &.head {
+      width: 14%;
+      height: 17%;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &.chest {
+      width: 24%;
+      height: 18%;
+      top: 17%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &.stomach {
+      width: 24%;
+      height: 20%;
+      top: 35%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &.larm {
+      width: 38%;
+      height: 14%;
+      top: 17%;
+      right: 0;
+    }
+    &.rarm {
+      width: 38%;
+      height: 14%;
+      top: 17%;
+      left: 0;
+    }
+    &.lleg {
+      width: 14%;
+      height: 45%;
+      top: 55%;
+      right: 36%;
+    }
+    &.rleg {
+      width: 14%;
+      height: 45%;
+      top: 55%;
+      left: 36%;
+    }
+  }
+  &__tooltip {
+    // positioning
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -110%);
+    position: absolute;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    // stylings
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    border-radius: $brs;
+    box-shadow: 0 3px 4px rgba(10, 31, 68, 0.1), 0 0 1px rgba(10, 31, 68, 0.08);
+    cursor: default;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+    }
+    // appearance
+    visibility: hidden;
+    opacity: 0;
+    margin-top: -15px;
+    transition: all .3s;
+  }
+  .hitbox__item:hover .hitbox__tooltip {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 0;
+  }
+}
