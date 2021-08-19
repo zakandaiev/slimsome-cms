@@ -187,9 +187,23 @@ function tableExists($pdo, $table) {
                 <h3>Требования игрового сервера:</h3>
                 <ul>
                   <li>SlimSomeUED.amxx (автор: szawesome, проверялось с версией: 1.0)</li>
-                  <li>Fresh Bans (автор: mazdan, проверялось с версией: 1.4.3)</li>
-                  <li>StatsX (автор: любой, проверялось с плагином: AES: StatsX CStrike 0.5+1)</li>
-                  <li>Chat Manager (автор: Mistrick, проверялось с версией: 1.1.2-16)</li>
+                  <li><a href="https://dev-cs.ru/resources/196/" target="_blank">Fresh Bans</a> (автор: mazdan, проверялось с версией: 1.4.3)</li>
+                  <ul>
+                    <li>SQLite версия</li>
+                    <li>значение квара fb_use_sql "2"</li>
+                    <li>баны должны сохраняться в файл cstrike/addons/amxmodx/data/sqlite3/fresh_bans.sq3</li>
+                  </ul>
+                  <li><a href="https://dev-cs.ru/resources/178/" target="_blank">StatsX</a> (автор: любой, проверялось с плагином: AES: StatsX CStrike 0.5+1)</li>
+                  <ul>
+                    <li>//#define CSSTATSX_SQL - должен быть закомментирован</li>
+                    <li>статистика должна сохраняться в файл cstrike/addons/amxmodx/data/csstats.dat</li>
+                  </ul>
+                  <li><a href="https://dev-cs.ru/resources/112/" target="_blank">Chat Manager</a> (автор: Mistrick, проверялось с версией: 1.1.2-16)</li>
+                  <ul>
+                    <li>включен лог сообщений</li>
+                    <li>#define FUNCTION_LOG_MESSAGES - должен быть раскомментирован</li>
+                    <li>логи должны сохраняться в папку cstrike/addons/amxmodx/logs/chatmanager</li>
+                  </ul>
                 </ul>
                 <h3>Требования web окружения:</h3>
                 <ul>
