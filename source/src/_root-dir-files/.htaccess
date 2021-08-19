@@ -93,5 +93,4 @@ RewriteRule ^(.*)$ index.php [F,L]
 	Header set X-XSS-Protection "1; mode=block"
 	Header set X-Content-Type-Options "nosniff"
 	Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
-	Header set Feature-Policy "geolocation 'self'; vibrate 'none'"
 </IfModule>
