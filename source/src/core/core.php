@@ -732,8 +732,8 @@ function uploadUsersIni($file_path) {
 
 function sendMail($recepient, $subject, $message, $from) {
   $site_name = $GLOBALS["site_name"];
-  $to = $recepient;
-  $subj = $subject;
+  $to = trim($recepient);
+  $subj = trim($subject);
   $headers = array(
     'Content-type' => 'text/html',
     'charset' => 'utf-8',
