@@ -1,5 +1,14 @@
-# SlimSome CMS <img width=100 align="right" src="https://raw.githubusercontent.com/zakandaiev/slimsome-cms/main/source/src/_root-dir-files/favicon.png" alt="SlimSome Logo">
+# SlimSome CMS <img width=120 align="right" src="https://raw.githubusercontent.com/zakandaiev/slimsome-cms/main/source/src/_root-dir-files/favicon.png" alt="SlimSome Logo">
 Бесплатная система для простого создания сайта вашего игрового проекта Counter-Strike 1.6
+
+#### Содержимое
+1. [Живой пример](#slimsome-cms-)
+2. [Скачать](#живой-пример)
+3. [Возможности](#возможности)
+4. [Требования игрового сервера](#требования-игрового-сервера)
+5. [Требования web окружения](#требования-web-окружения)
+6. [Процесс установки](#процесс-установки)
+7. [Редактирование исходного кода](#редактирование-исходного-кода)
 
 ## Живой пример
 * [awesomecs.ru](https://awesomecs.ru)
@@ -94,3 +103,12 @@
     </ol>
   </li>
 </ol>
+
+## Редактирование исходного кода
+В процессе создания был использован [FrontEnd Boilerplate](https://github.com/zakandaiev/frontend-boilerplate) и адаптирован под PHP окружение. Для работы с исходным кодом потребуется установить NodeJS и глобально Gulp4. Для создания БД и обработки php советую использовать OpenServer.
+1. Создаём локальный домен `slimsome.local`, БД и пользователя.
+2. Папку `source` помещаем в корень сайта (`slimsome.local/source`).
+3. Заходим в неё, устанавливаем все необходимые модули и зависимости командой `npm i`.
+4. Командой `gulp` запускаем окружение для разработки.
+5. Командой `gulp build` компилируем исходники в файлы для продакшена.
+6. На реальный сайт копируем всё содержимое `slimsome.local` кроме папки `source`.
