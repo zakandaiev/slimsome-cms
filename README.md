@@ -38,7 +38,7 @@
 * И многое другое...
 
 ## Требования игрового сервера
-* [SlimSomeUED.amxx](https://github.com/zakandaiev/slimsome-cms/blob/main/SlimSomeCMS_UED.sma) (автор: szawesome, проверялось с версией: *1.0*)
+* [SlimSomeUED.amxx](https://github.com/zakandaiev/slimsome-cms/blob/main/SlimSomeUED.sma) (автор: szawesome, проверялось с версией: *1.0*)
 * [Fresh Bans](https://dev-cs.ru/resources/196/) (автор: mazdan, проверялось с версией: *1.4.3*)
   * SQLite версия
   * значение квара `fb_use_sql "2"`
