@@ -1,7 +1,7 @@
 SET NAMES UTF8;
 
 CREATE TABLE IF NOT EXISTS `%prefix%_settings` ( 
-	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(64) NOT NULL,
 	`value` TEXT DEFAULT NULL,
 	`json` JSON DEFAULT NULL,
@@ -43,18 +43,18 @@ INSERT INTO `%prefix%_settings` (`name`, `value`, `json`) VALUES
 ('socials', null, '[{"icon": "vk", "url": "https://vk.com/szawesome", "blank": true},{"icon": "dev-cs", "url": "https://dev-cs.ru/members/7458/", "blank": true},{"icon": "email", "url": "mailto:szawesome95@gmail.com", "blank": true}]');
 
 CREATE TABLE IF NOT EXISTS `%prefix%_users` ( 
-	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`login` VARCHAR(32) NOT NULL,
 	`password` VARCHAR(32) NOT NULL,
 	`email` VARCHAR(128) DEFAULT NULL,
 	`nick` VARCHAR(64) DEFAULT NULL,
 	`steam_id` VARCHAR(32) DEFAULT NULL,
 	`name` VARCHAR(32) DEFAULT NULL,
-	`service_id` INT(11) DEFAULT NULL,
+	`service_id` INT DEFAULT NULL,
 	`service_start` TIMESTAMP NULL DEFAULT NULL,
 	`service_end` TIMESTAMP NULL DEFAULT NULL,
 	`service_nolimit` BOOLEAN NOT NULL DEFAULT FALSE,
-	`service_bind_type` INT(1) DEFAULT NULL,
+	`service_bind_type` INT DEFAULT NULL,
 	`isadmin` BOOLEAN NOT NULL DEFAULT FALSE,
 	`ismoder` BOOLEAN NOT NULL DEFAULT FALSE,
 	`ip` VARCHAR(32) DEFAULT NULL,
@@ -71,7 +71,7 @@ INSERT INTO `%prefix%_users` (`login`, `password`, `email`, `name`, `isadmin`, `
 ('%adm_login%', '%adm_pass%', '%adm_email%', '%adm_name%', true, true);
 
 CREATE TABLE IF NOT EXISTS `%prefix%_services` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL,
   `flags` VARCHAR(32) NOT NULL,
   `days` JSON NOT NULL COMMENT 'days,price_ua,price_rub',
@@ -85,38 +85,38 @@ CREATE TABLE IF NOT EXISTS `%prefix%_services` (
 ) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `%prefix%_chat` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INT(11) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
   `message` TEXT NOT NULL,
-  `refference` INT(11) DEFAULT NULL,
+  `refference` INT DEFAULT NULL,
   `cdate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `%prefix%_payments` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL,
-  `user_id` INT(11) DEFAULT NULL,
+  `user_id` INT DEFAULT NULL,
   `user_data` JSON DEFAULT NULL,
-  `service_id` INT(11) NOT NULL,
+  `service_id` INT NOT NULL,
   `service_name` VARCHAR(128) NOT NULL,
-  `days` INT(11) NOT NULL,
-  `price` INT(11) NOT NULL,
-  `currency` INT(1) NOT NULL,
+  `days` INT NOT NULL,
+  `price` INT NOT NULL,
+  `currency` INT NOT NULL,
   `prolong` BOOLEAN NOT NULL DEFAULT FALSE,
-  `status` INT(1) NOT NULL,
+  `status` INT NOT NULL,
   `cdate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `%prefix%_pages` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL,
   `url` VARCHAR(64) NOT NULL,
   `content` TEXT DEFAULT NULL,
   `template` VARCHAR(64) DEFAULT NULL,
   `enabled` BOOLEAN NOT NULL DEFAULT TRUE,
-  `page_order` INT(11) UNSIGNED NULL DEFAULT NULL,
+  `page_order` INT UNSIGNED NULL DEFAULT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE `name` (`name`),
   UNIQUE `url` (`url`),
@@ -128,21 +128,21 @@ INSERT INTO `%prefix%_pages` (`name`, `url`, `template`, `page_order`) VALUES
 ('Правила', 'rules', 'rules', 2);
 
 CREATE TABLE IF NOT EXISTS `%prefix%_bans` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nick` VARCHAR(128) NOT NULL,
   `ip` VARCHAR(32) NOT NULL,
   `steam_id` VARCHAR(32) NOT NULL,
   `reason` VARCHAR(128) NOT NULL,
-  `created` INT(11) DEFAULT NULL,
-  `length` INT(11) DEFAULT NULL,
+  `created` INT DEFAULT NULL,
+  `length` INT DEFAULT NULL,
   `admin_nick` VARCHAR(128) NOT NULL,
   `unbanned` BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `%prefix%_news` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `author` INT(11) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `author` INT NOT NULL,
   `title` VARCHAR(64) NOT NULL,
   `url` VARCHAR(128) NOT NULL,
   `body` TEXT DEFAULT NULL,
@@ -156,36 +156,36 @@ CREATE TABLE IF NOT EXISTS `%prefix%_news` (
 ) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `%prefix%_comments` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `news_id` INT(11) NOT NULL,
-  `author` INT(11) NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `news_id` INT NOT NULL,
+  `author` INT NOT NULL,
   `comment` TEXT NOT NULL,
   `cdate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `%prefix%_stats` (
-  `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nick` VARCHAR(128) NOT NULL,
   `uniq` VARCHAR(32) NOT NULL,
-  `teamkill` INT(11) DEFAULT NULL,
-  `damage` INT(11) DEFAULT NULL,
-  `deaths` INT(11) DEFAULT NULL,
-  `kills` INT(11) DEFAULT NULL,
-  `shots` INT(11) DEFAULT NULL,
-  `hits` INT(11) DEFAULT NULL,
-  `headshots` INT(11) DEFAULT NULL,
-  `defusions` INT(11) DEFAULT NULL,
-  `defused` INT(11) DEFAULT NULL,
-  `plants` INT(11) DEFAULT NULL,
-  `explosions` INT(11) DEFAULT NULL,
-  `head` INT(11) DEFAULT NULL,
-  `chest` INT(11) DEFAULT NULL,
-  `stomach` INT(11) DEFAULT NULL,
-  `leftarm` INT(11) DEFAULT NULL,
-  `rightarm` INT(11) DEFAULT NULL,
-  `leftleg` INT(11) DEFAULT NULL,
-  `rightleg` INT(11) DEFAULT NULL,
-  `rank` INT(11) DEFAULT NULL,
+  `teamkill` INT DEFAULT NULL,
+  `damage` INT DEFAULT NULL,
+  `deaths` INT DEFAULT NULL,
+  `kills` INT DEFAULT NULL,
+  `shots` INT DEFAULT NULL,
+  `hits` INT DEFAULT NULL,
+  `headshots` INT DEFAULT NULL,
+  `defusions` INT DEFAULT NULL,
+  `defused` INT DEFAULT NULL,
+  `plants` INT DEFAULT NULL,
+  `explosions` INT DEFAULT NULL,
+  `head` INT DEFAULT NULL,
+  `chest` INT DEFAULT NULL,
+  `stomach` INT DEFAULT NULL,
+  `leftarm` INT DEFAULT NULL,
+  `rightarm` INT DEFAULT NULL,
+  `leftleg` INT DEFAULT NULL,
+  `rightleg` INT DEFAULT NULL,
+  `rank` INT DEFAULT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM;

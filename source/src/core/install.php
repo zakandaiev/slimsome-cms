@@ -69,19 +69,9 @@ function tableExists($pdo, $table) {
                 $site_logo_path = "'".$site_logo_path."'";
               }
 
-              if (isset($_POST["ik_on"]) && $_POST["ik_on"] == "on") {
-                $ik_on = true;
-              } else {
-                $ik_on = false;
-              }
-              if (isset($_POST["liq_on"]) && $_POST["liq_on"] == "on") {
-                $liq_on = true;
-              } else {
-                $liq_on = false;
-              }
               $payments = array (
-               "InterKassa" => array("purse" => $_POST["ik_purse"], "secret" => $_POST["ik_secret_key"], "enabled" => $ik_on),
-               "LiqPay" => array("purse" => $_POST["liq_purse"], "secret" => $_POST["liq_secret_key"], "enabled" => $liq_on)
+               "InterKassa" => array("purse" => null, "secret" => null, "enabled" => false),
+               "LiqPay" => array("purse" => null, "secret" => null, "enabled" => false)
               );
 
               $payments = json_encode($payments, JSON_FORCE_OBJECT);
@@ -315,26 +305,6 @@ function tableExists($pdo, $table) {
                   <input type="text" name="ftp_bans_path" placeholder="addons/amxmodx/data/sqlite3/fresh_bans.sq3" value="addons/amxmodx/data/sqlite3/fresh_bans.sq3" required>
                   <label>Путь к csstats.dat</label>
                   <input type="text" name="ftp_stats_path" placeholder="addons/amxmodx/data/csstats.dat" value="addons/amxmodx/data/csstats.dat" required>
-
-                  <h3>Настройки Автооплаты</h3>
-                  <label>Покупка через InterKassa</label>
-                  <label class="switcher">
-                    <input type="checkbox" name="ik_on">
-                    <span class="slider round"></span>
-                  </label>
-                  <label>InterKassa кошелек</label>
-                  <input type="text" name="ik_purse" placeholder="Публичный ключ">
-                  <label>InterKassa секретный ключ</label>
-                  <input type="text" name="ik_secret_key" placeholder="Секретный ключ">
-                  <label>Покупка через LiqPay</label>
-                  <label class="switcher">
-                    <input type="checkbox" name="liq_on">
-                    <span class="slider round"></span>
-                  </label>
-                  <label>LiqPay кошелек</label>
-                  <input type="text" name="liq_purse" placeholder="Публичный ключ">
-                  <label>LiqPay секретный ключ</label>
-                  <input type="text" name="liq_secret_key" placeholder="Секретный ключ">
 
                   <button type="submit" name="start_install" class="btn btn_primary">Установить</button>
                 </form>
