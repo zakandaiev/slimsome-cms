@@ -14,7 +14,7 @@
 * [awesomecs.ru](https://awesomecs.ru)
 
 ## Скачать
-* Скачать: [последняя версия v1.0.0](https://github.com/zakandaiev/slimsome-cms/files/7017840/slimsome-cms-v1.0.0.zip)
+* Скачать: [последняя версия v1.0.1](https://github.com/zakandaiev/slimsome-cms/files/7045659/slimsome-cms-v1.0.1.zip)
 * Посмотреть: [все релизы](https://github.com/zakandaiev/slimsome-cms/releases)
 
 ## Возможности
@@ -79,7 +79,7 @@
 1. Создайте локальный домен `slimsome.local`, БД и пользователя.
 2. Папку `source` поместите в корень сайта (`slimsome.local/source`).
 3. Откройте коммандную строку и зайдите в папку `source`.
-4. Устанавите все необходимые модули и зависимости командой `npm i`.
+4. Установите все необходимые модули и зависимости командой `npm i`.
 5. Команда `gulp` запускает окружение для разработки.
 6. Команда `gulp build` компилирует все исходники в файлы для продакшена.
 7. На настоящий сайт скопировать всё содержимое `slimsome.local` кроме папки `source`.
