@@ -1,5 +1,6 @@
 <?php
   $db_payments = $GLOBALS["payments"];
+  $site_url = $GLOBALS["site_url"];
 ?>
 
 <section class="block">
@@ -23,6 +24,12 @@
             <input type="text" name="'.$key.'_purse" value="'.$rows["purse"].'" placeholder="Публичный ключ">
             <label>'.$key.' секретный ключ</label>
             <input type="text" name="'.$key.'_secret" value="'.$rows["secret"].'" placeholder="Секретный ключ">
+            <p class="info-block">
+              Обратный URL для всех взаимодействий:
+              <span class="copy" data-copy="'.$site_url.'buy_process?'.$key.'" title="Нажми чтобы скопировать"><strong>'.$site_url.'buy_process?'.$key.'</strong>'.getSvg("img/icons/copy.svg").'</span>
+              <br>
+              Тип запроса: <strong>POST</strong>
+            </p>
           ';
         }
       ?>
