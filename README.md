@@ -14,7 +14,7 @@
 * [awesomecs.ru](https://awesomecs.ru)
 
 ## Скачать
-* Скачать: [последняя версия v1.0.1](https://github.com/zakandaiev/slimsome-cms/files/7045659/slimsome-cms-v1.0.1.zip)
+* Скачать: [последняя версия v1.1.0](https://github.com/zakandaiev/slimsome-cms/files/7055598/slimsome-cms-v1.1.0.zip)
 * Посмотреть: [все релизы](https://github.com/zakandaiev/slimsome-cms/releases)
 
 ## Возможности
