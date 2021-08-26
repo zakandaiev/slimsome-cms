@@ -26,7 +26,7 @@ $db_socials_query = json_decode($db_socials_query, true);
 if (count($db_socials_query) <= 0) {
   echo json_encode(array("success" => 0, "error" => "Неверный параметр"));
 } else if (count($db_socials_query) == 1) {
-  $socials_update_query = $pdo->prepare("UPDATE ".$prefix."_settings SET json=:null WHERE name='socials'");
+  $socials_update_query = $pdo->prepare("UPDATE ".$prefix."_settings SET value=:null WHERE name='socials'");
   $null_col = null;
   $socials_update_query->bindParam(":null", $null_col, PDO::PARAM_NULL);
   $socials_update_query->execute();
@@ -35,8 +35,8 @@ if (count($db_socials_query) <= 0) {
   unset($db_socials_query[$social_id]);
   $db_socials_query = array_values($db_socials_query);
   $db_socials_query = json_encode($db_socials_query, JSON_FORCE_OBJECT);
-  $socials_update_query = $pdo->prepare("UPDATE ".$prefix."_settings SET json=:json WHERE name='socials'");
-  $socials_update_query->bindParam(":json",$db_socials_query);
+  $socials_update_query = $pdo->prepare("UPDATE ".$prefix."_settings SET value=:value WHERE name='socials'");
+  $socials_update_query->bindParam(":value",$db_socials_query);
   $socials_update_query->execute();
 }
 

@@ -13,11 +13,15 @@
           <?php
             foreach (json_decode($db_socials_query) as $rows) {
               $blank = '';
-              $icon_path = 'img/socials/'.$rows->icon.'.svg';
+              $icon_path = 'img/socials/'.$rows->icon;
               if ($rows->blank) {
                 $blank = 'target="_blank" rel="noopener noreferrer"';
               }
-              echo '<a href="'.$rows->url.'" class="socials__icon" '.$blank.'>'.getSvg($icon_path).'</a>';
+              if(substr($rows->icon, -3) == "svg") {
+                echo '<a href="'.$rows->url.'" class="socials__icon" '.$blank.'>'.getSvg($icon_path).'</a>';
+              } else {
+                echo '<a href="'.$rows->url.'" class="socials__icon" '.$blank.'><img src="'.urlEncodeSpaces($icon_path).'" alt="'.$rows->icon.'"></a>';
+              }
             }
           ?>
         </div>

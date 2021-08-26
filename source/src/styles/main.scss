@@ -787,6 +787,9 @@ img, svg {
   border: 1px dashed var(--text-color);
   border-radius: $brs;
   text-align: center;
+  &_grey {
+    border-color: #ddd;
+  }
 }
 
 .pagination {

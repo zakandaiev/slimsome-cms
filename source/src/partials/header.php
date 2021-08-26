@@ -199,8 +199,8 @@ if ($current_page == "stats") {
   <? endif; ?>
 
   <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="mask-icon" href="icon.svg">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="mask-icon" href="favicon.svg">
 
   <? if($current_page == "index"): ?>
     <link rel="canonical" href="<?=$GLOBALS["site_url"]?>">

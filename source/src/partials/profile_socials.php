@@ -11,15 +11,15 @@
       <form id="add_socials" method="post" class="form">
         <label>
           Иконка
-          <br><small>Должна лежать в <?=$GLOBALS["site_url"]?>img/socials и иметь формат .svg</small>
+          <br><small>Должна лежать в <?=$GLOBALS["site_url"]?>img/socials</small>
         </label>
         <select name="icon" required>
           <?php
             $socials_dir = dirname(__FILE__)."/../img/socials";
             if (file_exists($socials_dir)) {
-              $icons = glob($socials_dir."/*.svg");
+              $icons = glob($socials_dir."/*.{svg,png,jpg,gif}", GLOB_BRACE);
               foreach ($icons as $icon) {
-                echo '<option value="'.substr(basename($icon), 0, -4).'">'.substr(basename($icon), 0, -4).'</option>';
+                echo '<option value="'.basename($icon).'">'.basename($icon).'</option>';
               }
             }
           ?>
@@ -59,20 +59,20 @@
         <form id="edit_socials" method="post" class="form">
           <label>
             Иконка
-            <br><small>Должна лежать в <?=$GLOBALS["site_url"]?>img/socials и иметь формат .svg</small>
+            <br><small>Должна лежать в <?=$GLOBALS["site_url"]?>img/socials</small>
           </label>
           <select name="icon" required>
             <?php
               $socials_dir = dirname(__FILE__)."/../img/socials";
               if (file_exists($socials_dir)) {
-                $icons = glob($socials_dir."/*.svg");
+                $icons = glob($socials_dir."/*.{svg,png,jpg,gif}", GLOB_BRACE);
                 foreach ($icons as $icon) {
-                  if($editing_arr["icon"] == substr(basename($icon), 0, -4)) {
+                  if($editing_arr["icon"] == basename($icon)) {
                     $selected = 'selected';
                   } else {
                     $selected = '';
                   }
-                  echo '<option value="'.substr(basename($icon), 0, -4).'" '.$selected.'>'.substr(basename($icon), 0, -4).'</option>';
+                  echo '<option value="'.basename($icon).'" '.$selected.'>'.basename($icon).'</option>';
                 }
               }
             ?>
@@ -118,7 +118,7 @@
                 echo '
                   <tr id="row_'.$key.'">
                     <td>'.++$soc_index.'</td>
-                    <td class="text-uppercase">'.$rows["icon"].'</td>
+                    <td>'.$rows["icon"].'</td>
                     <td>'.$rows["url"].' <a href="'.$rows["url"].'" target="_blank" title="Перейти по ссылке">➥</a></td>
                     <td>
                       <div class="table__edit">

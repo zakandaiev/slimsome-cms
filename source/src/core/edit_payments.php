@@ -39,9 +39,9 @@ $payments = array (
  "InterKassa" => array("purse" => $ik_purse, "secret" => $ik_secret, "enabled" => $ik_enabled),
  "LiqPay" => array("purse" => $liq_purse, "secret" => $liq_secret, "enabled" => $liq_enabled)
 );
-$payments_update_query = $pdo->prepare("UPDATE ".$prefix."_settings SET json=:payments WHERE name='payments'");
+$payments_update_query = $pdo->prepare("UPDATE ".$prefix."_settings SET value=:value WHERE name='payments'");
 $payments = json_encode($payments, JSON_FORCE_OBJECT);
-$payments_update_query->bindParam(":payments", $payments);
+$payments_update_query->bindParam(":value", $payments);
 $payments_update_query->execute();
 
 echo json_encode(array("success" => 1));

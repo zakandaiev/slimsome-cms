@@ -39,16 +39,16 @@ if (empty($db_socials_query)) {
     0 => array("icon" => $icon, "url" => $url, "blank" => $blank)
   );
   $json = array_values($json);
-  $socials_update_query = $pdo->prepare("UPDATE ".$prefix."_settings SET json=:json WHERE name='socials'");
-  $socials_update_query->bindParam(":json",json_encode($json, JSON_FORCE_OBJECT));
+  $socials_update_query = $pdo->prepare("UPDATE ".$prefix."_settings SET value=:value WHERE name='socials'");
+  $socials_update_query->bindParam(":value",json_encode($json, JSON_FORCE_OBJECT));
   $socials_update_query->execute();
 } else {
   $db_socials_query = json_decode($db_socials_query, true);
   array_push($db_socials_query, array("icon" => $icon, "url" => $url, "blank" => $blank));
   $db_socials_query = array_values($db_socials_query);
   $db_socials_query = json_encode($db_socials_query, JSON_FORCE_OBJECT);
-  $socials_update_query = $pdo->prepare("UPDATE ".$prefix."_settings SET json=:json WHERE name='socials'");
-  $socials_update_query->bindParam(":json",$db_socials_query);
+  $socials_update_query = $pdo->prepare("UPDATE ".$prefix."_settings SET value=:value WHERE name='socials'");
+  $socials_update_query->bindParam(":value",$db_socials_query);
   $socials_update_query->execute();
 }
 

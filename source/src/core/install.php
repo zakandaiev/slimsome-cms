@@ -21,8 +21,11 @@ function tableExists($pdo, $table) {
   <meta charset="utf-8">
   <title>Установка SlimSome CMS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, target-densitydpi=device-dpi">
-  <link rel="mask-icon" href="../favicon.svg">
+
+  <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="mask-icon" href="../favicon.svg">
+
   <link rel="stylesheet" href="../css/main.css">
 </head>
 
@@ -105,6 +108,8 @@ function tableExists($pdo, $table) {
                 }
               }
 
+              $query = $pdo->query("CREATE TRIGGER reset_service_end BEFORE UPDATE ON ".$_POST["db_prefix"]."_users FOR EACH ROW BEGIN IF NEW.service_nolimit = 1 THEN SET NEW.service_end = null; END IF; END;");
+
               $db_connect_file = '<?php' . PHP_EOL;
               $db_connect_file .= '  $dsn = "mysql:host=' . $_POST['db_host'] . ';dbname=' . $_POST['db_name'] . ';charset=utf8";' . PHP_EOL;
               $db_connect_file .= '  $user = "' . $_POST["db_user"] . '";' . PHP_EOL;
@@ -176,19 +181,19 @@ function tableExists($pdo, $table) {
                 </ul>
                 <h3>Требования игрового сервера:</h3>
                 <ul>
-                  <li>SlimSomeUED.amxx (автор: szawesome, проверялось с версией: 1.0)</li>
-                  <li><a href="https://dev-cs.ru/resources/196/" target="_blank">Fresh Bans</a> (автор: mazdan, проверялось с версией: 1.4.3)</li>
+                  <li><a href="https://github.com/zakandaiev/slimsome-cms/blob/main/SlimSomeUED.sma" target="_blank"><u>SlimSomeUED.amxx</u></a> (автор: szawesome, проверялось с версией: 1.0)</li>
+                  <li><a href="https://dev-cs.ru/resources/196/" target="_blank"><u>Fresh Bans</u></a> (автор: mazdan, проверялось с версией: 1.4.3)</li>
                   <ul>
                     <li>SQLite версия</li>
                     <li>значение квара fb_use_sql "2"</li>
                     <li>баны должны сохраняться в файл cstrike/addons/amxmodx/data/sqlite3/fresh_bans.sq3</li>
                   </ul>
-                  <li><a href="https://dev-cs.ru/resources/178/" target="_blank">StatsX</a> (автор: любой, проверялось с плагином: AES: StatsX CStrike 0.5+1)</li>
+                  <li><a href="https://dev-cs.ru/resources/178/" target="_blank"><u>StatsX</u></a> (автор: любой, проверялось с плагином: AES: StatsX CStrike 0.5+1)</li>
                   <ul>
                     <li>//#define CSSTATSX_SQL - должен быть закомментирован</li>
                     <li>статистика должна сохраняться в файл cstrike/addons/amxmodx/data/csstats.dat</li>
                   </ul>
-                  <li><a href="https://dev-cs.ru/resources/112/" target="_blank">Chat Manager</a> (автор: Mistrick, проверялось с версией: 1.1.2-16)</li>
+                  <li><a href="https://dev-cs.ru/resources/112/" target="_blank"><u>Chat Manager</u></a> (автор: Mistrick, проверялось с версией: 1.1.2-16)</li>
                   <ul>
                     <li>включен лог сообщений</li>
                     <li>#define FUNCTION_LOG_MESSAGES - должен быть раскомментирован</li>
