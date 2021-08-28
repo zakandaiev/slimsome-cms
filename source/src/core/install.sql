@@ -39,7 +39,8 @@ INSERT INTO `%prefix%_settings` (`name`, `value`) VALUES
 ('ftp_bans_path', '%ftp_bans_path%'),
 ('ftp_stats_path', '%ftp_stats_path%'),
 ('payments', '%payments%'),
-('socials', '[{"icon": "vk.svg", "url": "https://vk.com/szawesome", "blank": true},{"icon": "dev-cs.svg", "url": "https://dev-cs.ru/members/7458/", "blank": true},{"icon": "email.svg", "url": "mailto:szawesome95@gmail.com", "blank": true}]');
+('socials', '[{"icon": "vk.svg", "url": "https://vk.com/szawesome", "blank": true},{"icon": "dev-cs.svg", "url": "https://dev-cs.ru/members/7458/", "blank": true},{"icon": "email.svg", "url": "mailto:szawesome95@gmail.com", "blank": true}]'),
+('server_online_info', null);
 
 CREATE TABLE IF NOT EXISTS `%prefix%_users` ( 
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,

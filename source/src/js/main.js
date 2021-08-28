@@ -34,7 +34,6 @@ $(document).ready(function() {
 
   // ACCODRION
   const accondionsContent = $('.accordion__content').hide();
-
   $('.accordion__title').click(function() {
     if ($(this).hasClass("active")) {
       $(this).next().slideUp();
@@ -43,45 +42,6 @@ $(document).ready(function() {
     }
     $(this).toggleClass("active");
   });
-
-  // LOGIN FORM
-  //= forms/form_login.js
-
-  // REGISTRATION FORM
-  //= forms/form_registration.js
-
-  // RESTORE FORM
-  //= forms/form_restore.js
-
-  // USERS
-  //= forms/form_users.js
-
-  // SITE FORM
-  //= forms/form_site.js
-
-  // SETTINGS FORM
-  //= forms/form_settings.js
-
-  // SERVICES FORM
-  //= forms/form_services.js
-
-  // PAYMENTS FORM
-  //= forms/form_payments.js
-
-  // SOCIALS FORM
-  //= forms/form_socials.js
-
-  // PAGES FORM
-  //= forms/form_pages.js
-
-  // BUY FORM
-  //= forms/form_buy.js
-
-  // PROLONG FORM
-  //= forms/form_prolong.js
-
-  // NEWS FORM
-  //= forms/form_news.js
 
   // WYSIWYG
   $("[data-editor='wysiwyg']").trumbowyg({
@@ -96,9 +56,9 @@ $(document).ready(function() {
   });
 
   // LOAD SERVER INFO
-  $("#server-info").load("../partials/server_info.php");
+  $("#server-info").load("../partials/widget_server_info.php");
 
-  // COPY TO CLIPBOARD LISTENER
+  // COPY TO CLIPBOARD
   $("[data-copy]").on("click", function() {
     const $temp = $("<input>");
     $("body").append($temp);
@@ -156,6 +116,21 @@ $(document).ready(function() {
     prevArrow: '<div class="carousel__prev"><svg aria-hidden="true" focusable="false" viewBox="0 0 640 640"><path d="M428.36 25C445.03 8.33 472.12 8.33 488.79 25C505.45 41.67 505.45 68.76 488.79 85.42C472.32 101.89 389.96 184.25 241.71 332.5C389.96 480.75 472.32 563.11 488.79 579.58C505.45 596.25 505.45 623.34 488.79 640.01C472.12 656.67 445.03 656.67 428.36 640.01C400.65 612.3 178.92 390.64 151.2 362.93C143.13 354.9 138.63 343.97 138.72 332.59C138.72 321.48 142.82 310.54 151.2 302.16C206.63 246.73 400.65 52.72 428.36 25Z" fill="currentColor"></path></svg></div>',
     nextArrow: '<div class="carousel__next"><svg aria-hidden="true" focusable="false" viewBox="0 0 238 238"><path d="M181.776 107.719L78.705 4.648c-6.198-6.198-16.273-6.198-22.47 0s-6.198 16.273 0 22.47l91.883 91.883-91.883 91.883c-6.198 6.198-6.198 16.273 0 22.47s16.273 6.198 22.47 0l103.071-103.039a15.741 15.741 0 0 0 4.64-11.283c0-4.13-1.526-8.199-4.64-11.313z" fill="currentColor"></path></svg></div>'
   });
+
+  // INCLUDE FORM PARTIALS
+  //= forms/form_login.js
+  //= forms/form_registration.js
+  //= forms/form_restore.js
+  //= forms/form_users.js
+  //= forms/form_site.js
+  //= forms/form_settings.js
+  //= forms/form_services.js
+  //= forms/form_payments.js
+  //= forms/form_socials.js
+  //= forms/form_pages.js
+  //= forms/form_buy.js
+  //= forms/form_prolong.js
+  //= forms/form_news.js
 });
 
 // UPLOAD IMAGES
