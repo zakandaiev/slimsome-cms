@@ -1,4 +1,5 @@
-# SlimSome CMS <img width=120 align="right" src="https://raw.githubusercontent.com/zakandaiev/slimsome-cms/main/source/src/_root-dir-files/favicon.png" alt="SlimSome Logo">
+# SlimSome CMS
+<img width=150 align="right" src="https://raw.githubusercontent.com/zakandaiev/slimsome-cms/main/source/src/_root-dir-files/favicon.png" alt="SlimSome Logo">
 Бесплатная система для простого создания сайта вашего игрового проекта Counter-Strike 1.6
 
 #### Содержимое
