@@ -36,41 +36,39 @@ if(empty($server_data) || time() - $server_data["last_check"] > 60 * 1) {
     $server_data["online_players"] = $source_query->GetPlayers();
   }
   catch(Exception $e) {
-    echo '<div class="widget-online"> <div class="widget-online__top"> <img src="img/no_image.jpg" alt="Текущая карта" class="widget-online__img"> <div class="widget-online__info"> <p><b>Карта:</b> <span style="display: inline-block;width: 92px;background: #e1e1e1;height: 1rem;margin-left: 5px;"></span></p> <p><b>Игроков:</b> <span style="display: inline-block;width: 76px;background: #e1e1e1;height: 1rem;margin-left: 5px;"></span></p> <p><span class="widget-online__indicator offline"></span><b>'.$server_ip.'</b></p> <a href="steam://connect/91.211.118.55:27015" class="btn btn_primary">Подключиться</a> </div> </div> <div class="widget-online__players"> <p><b>Не удалось загрузить информацию о игроках.</b></p> </div> </div>';
-    return;
+    $server_data["online_players"] = null;
   }
   finally {
     $source_query->Disconnect();
   }
 
-  if (!empty($server_data)) {
+  if(!empty($server_data["online_players"])) {
     $server_data["last_check"] = time();
-    $server_online_info_query = $pdo->prepare("UPDATE ".$prefix."_settings SET value=:value WHERE name='server_online_info'");
-    $server_online_info_query->bindParam(":value", json_encode($server_data, JSON_FORCE_OBJECT));
-    $server_online_info_query->execute();
-  } else {
-    echo '<div class="widget-online"> <div class="widget-online__top"> <img src="img/no_image.jpg" alt="Текущая карта" class="widget-online__img"> <div class="widget-online__info"> <p><b>Карта:</b> <span style="display: inline-block;width: 92px;background: #e1e1e1;height: 1rem;margin-left: 5px;"></span></p> <p><b>Игроков:</b> <span style="display: inline-block;width: 76px;background: #e1e1e1;height: 1rem;margin-left: 5px;"></span></p> <p><span class="widget-online__indicator offline"></span><b>'.$server_ip.'</b></p> <a href="steam://connect/91.211.118.55:27015" class="btn btn_primary">Подключиться</a> </div> </div> <div class="widget-online__players"> <p><b>Не удалось загрузить информацию о сервере.</b></p> </div> </div>';
-    return;
   }
+  $server_data_json = json_encode($server_data, JSON_FORCE_OBJECT);
+
+  $server_online_info_query = $pdo->prepare("UPDATE ".$prefix."_settings SET value=:value WHERE name='server_online_info'");
+  $server_online_info_query->bindParam(":value", $server_data_json);
+  $server_online_info_query->execute();
 }
 
 if (!empty($server_data)) {
-  if (file_exists(dirname(__FILE__)."/../img/maps/".$server_data["Map"].".jpg")) {
-    $map_img = 'img/maps/'.$server_data["Map"].'.jpg';
-  } else {
-    $map_img = 'img/no_image.jpg';
-  }
   $server_status = 'online';
+  if (file_exists(dirname(__FILE__)."/../img/maps/".$server_data["Map"].".jpg")) {
+    $server_map_img = 'img/maps/'.$server_data["Map"].'.jpg';
+  } else {
+    $server_map_img = 'img/no_image.jpg';
+  }
 } else {
-  $map_img = 'img/no_image.jpg';
   $server_status = 'offline';
+  $server_map_img = 'img/no_image.jpg';
 }
 
 ?>
 
 <div class="widget-online">
   <div class="widget-online__top">
-    <img src="<?= $map_img ?>" alt="Текущая карта" class="widget-online__img" data-zoomable>
+    <img src="<?= $server_map_img ?>" alt="Текущая карта" class="widget-online__img" data-zoomable>
     <div class="widget-online__info">
       <p><b>Карта:</b> <?= $server_data["Map"] ?></p>
       <p><b>Игроков:</b> <?= $server_data["Players"] ?>/<?= $server_data["MaxPlayers"] ?></p>
@@ -79,47 +77,51 @@ if (!empty($server_data)) {
     </div>
   </div>
   <div class="widget-online__players">
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Ник</th>
-            <th>Счёт</th>
-            <th>Время</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-            if (!empty($server_data["online_players"])) {
-              foreach ($server_data["online_players"] AS $key => $player_kills) {
-                $player_score[$key]  = $player_kills['Frags'];
-              }
-              array_multisort($player_score, SORT_DESC, $server_data["online_players"]);
-              $pnum = 0;
-              foreach ($server_data["online_players"] as $player) {
-                $player_nick = htmlspecialchars(trim($player["Name"]));
-                if(!empty(getPlayerAvatar($player["Name"]))) {
-                  $player_avatar = '<img src="'.getPlayerAvatar($player["Name"]).'" alt="'.getPlayerPosition($player["Name"]).'" title="'.getPlayerPosition($player["Name"]).'" class="avatar">';
-                } else {
-                  $player_avatar = "";
+    <? if(!isset($server_data["online_players"]) || empty($server_data["online_players"])): ?>
+      <p><b>Не удалось загрузить информацию о игроках.</b></p>
+    <? else: ?>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Ник</th>
+              <th>Счёт</th>
+              <th>Время</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+              if (!empty($server_data["online_players"])) {
+                foreach ($server_data["online_players"] AS $key => $player_kills) {
+                  $player_score[$key]  = $player_kills['Frags'];
                 }
-                echo '
-                  <tr>
-                    <td>'.++$pnum.'</td>
-                    <td>'.$player_nick.$player_avatar.'</td>
-                    <td>'.$player["Frags"].'</td>
-                    <td>'.$player["TimeF"].'</td>
-                  </tr>
-                ';
+                array_multisort($player_score, SORT_DESC, $server_data["online_players"]);
+                $pnum = 0;
+                foreach ($server_data["online_players"] as $player) {
+                  $player_nick = htmlspecialchars(trim($player["Name"]));
+                  if(!empty(getPlayerAvatar($player["Name"]))) {
+                    $player_avatar = '<img src="'.getPlayerAvatar($player["Name"]).'" alt="'.getPlayerPosition($player["Name"]).'" title="'.getPlayerPosition($player["Name"]).'" class="avatar">';
+                  } else {
+                    $player_avatar = "";
+                  }
+                  echo '
+                    <tr>
+                      <td>'.++$pnum.'</td>
+                      <td>'.$player_nick.$player_avatar.'</td>
+                      <td>'.$player["Frags"].'</td>
+                      <td>'.$player["TimeF"].'</td>
+                    </tr>
+                  ';
+                }
+              } else {
+                echo '<tr><td>0</td><td colspan="3">Онлайн игроков нет.</td></tr>';
               }
-            } else {
-              echo '<tr><td>0</td><td colspan="3">Онлайн игроков нет.</td></tr>';
-            }
-          ?>
-        </tbody>
-      </table>
-    </div>
+            ?>
+          </tbody>
+        </table>
+      </div>
+    <? endif; ?>
   </div>
 </div>
 

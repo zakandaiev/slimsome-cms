@@ -2,7 +2,16 @@
 
 $news_list_limit = 3;
 
-$last_n_news = $pdo->prepare("SELECT * FROM ".$prefix."_news WHERE enabled IS TRUE ORDER BY cdate DESC, id DESC LIMIT :limit");
+$last_n_news = $pdo->prepare("
+  SELECT *,
+    (SELECT coalesce(nick,login) FROM ".$prefix."_users WHERE id=t_news.author) as author_nick,
+    (SELECT name FROM ".$prefix."_users WHERE id=t_news.author) as author_name,
+    (SELECT count(id) FROM ".$prefix."_comments WHERE news_id=t_news.id) as comments_count
+  FROM ".$prefix."_news t_news
+  WHERE enabled is TRUE
+  ORDER BY cdate DESC, id DESC
+  LIMIT :limit
+");
 $last_n_news->bindParam(":limit", $news_list_limit, PDO::PARAM_INT);
 $last_n_news->execute();
 $last_n_news = $last_n_news->fetchAll(PDO::FETCH_ASSOC);
@@ -22,7 +31,20 @@ $last_n_news = $last_n_news->fetchAll(PDO::FETCH_ASSOC);
         </a>
         <div class="news__info">
           <h3 class="news__title"><a href="news?<?=$rows["url"]?>"><?=$rows["title"]?></a></h3>
-          <p class="news__date"><?=dateWhen(strtotime($rows["cdate"]))?></p>
+          <div class="news-meta">
+            <span class="news-meta__item">
+              <?= getSvg("img/icons/clock.svg") ?>
+              <?=dateWhen(strtotime($rows["cdate"]))?>
+            </span>
+            <span class="news-meta__item" title="<?= $rows["author_name"] ?>">
+              <?= getSvg("img/icons/user.svg") ?>
+              <?= $rows["author_nick"] ?>
+            </span>
+            <a href="news?<?=$rows["url"]?>#comments" class="news-meta__item">
+              <?= getSvg("img/icons/comments.svg") ?>
+              <?= getCommentsNumString($rows["comments_count"]) ?>
+            </a>
+          </div>
           <a href="news?<?=$rows["url"]?>" class="news__link">Подробнее</a>
         </div>
       </article>

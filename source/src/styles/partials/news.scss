@@ -35,11 +35,10 @@
   &__title {
     margin-bottom: 0;
   }
-  &__date {
+  .news-meta {
     flex-grow: 1;
-    margin-bottom: 10px;
-    font-size: .8em;
-    color: #888;
+    align-items: flex-start;
+    margin-bottom: 30px;
   }
   &__link {
     @extend .btn;
