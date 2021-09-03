@@ -38,7 +38,7 @@
   .news-meta {
     flex-grow: 1;
     align-items: flex-start;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
   &__link {
     @extend .btn;
@@ -64,7 +64,7 @@
   .news-meta {
     flex-grow: 1;
     align-items: flex-start;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
   // MEDIA
   @media (max-width: 991px) {
