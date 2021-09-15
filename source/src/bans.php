@@ -80,7 +80,7 @@ if (!empty($db_bans) && empty($search_keyword) && empty($_GET["page"])) {
       ) as month
   ")->fetch(PDO::FETCH_ASSOC);
 
-  $bans_per_months = $pdo->query("
+  /*$bans_per_months = $pdo->query("
     SELECT * FROM (
       SELECT
         COUNT(id) as bans_count, EXTRACT(month FROM FROM_UNIXTIME(created)) as month, EXTRACT(year FROM FROM_UNIXTIME(created)) as year
@@ -89,6 +89,30 @@ if (!empty($db_bans) && empty($search_keyword) && empty($_GET["page"])) {
       ORDER BY year DESC, month DESC
       LIMIT 5
     ) t1 ORDER BY t1.year, t1.month
+  ")->fetchAll(PDO::FETCH_ASSOC);*/
+  $bans_per_months = $pdo->query("
+    SELECT coalesce(bans_count, 0) as bans_count, t2.year, t2.month FROM (
+      SELECT
+        EXTRACT(year FROM FROM_UNIXTIME(created)) as year, EXTRACT(month FROM FROM_UNIXTIME(created)) as month, count(*) as bans_count
+      FROM ".$prefix."_bans
+      GROUP BY year, month
+    ) t1
+    RIGHT JOIN (
+      SELECT EXTRACT(year FROM tt.Date) as year, EXTRACT(month FROM tt.Date) as month
+        FROM (
+            SELECT curdate() - INTERVAL (a.a + (10 * b.a) + (100 * c.a) + (1000 * d.a) ) DAY as Date
+            FROM (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as a
+            CROSS JOIN (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as b
+            CROSS JOIN (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as c
+            CROSS JOIN (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as d
+        ) tt
+        WHERE tt.Date between date_sub(NOW(), INTERVAL 4 month) and now()
+        GROUP BY year, month
+        ORDER BY year, month
+    ) t2 ON t2.month=t1.month AND t1.year=t2.year
+    WHERE t2.month IS NOT NULL
+    ORDER BY t2.year, t2.month
+    LIMIT 5
   ")->fetchAll(PDO::FETCH_ASSOC);
 } else {
   $bans_top_nicks = $bans_top_reasons = $bans_per_days = $bans_per_months = array();

@@ -5,20 +5,22 @@
     border-radius: 50%;
     vertical-align: text-bottom;
   }
+  [class^="top-"] {
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+    background-size: 1.6rem;
+  }
   .top-1 {
-    background: url(../img/stats/gold.svg) 100% 50% no-repeat;
-    background-size: 1em;
-    padding-right: 1.2em;
+    background-image: url(../img/stats/gold.svg);
+    padding-right: 1.8rem;
   }
   .top-2 {
-    background: url(../img/stats/silver.svg) 100% 50% no-repeat;
-    background-size: 1em;
-    padding-right: 1.2em;
+    background-image: url(../img/stats/silver.svg);
+    padding-right: 1.8rem;
   }
   .top-3 {
-    background: url(../img/stats/bronze.svg) 100% 50% no-repeat;
-    background-size: 1em;
-    padding-right: 1.2em;
+    background-image: url(../img/stats/bronze.svg);
+    padding-right: 1.8rem;
   }
 }
 
@@ -355,12 +357,10 @@
     // appearance
     visibility: hidden;
     opacity: 0;
-    margin-top: -15px;
     transition: all .3s;
   }
   .hitbox__item:hover .hitbox__tooltip {
     visibility: visible;
     opacity: 1;
-    margin-top: 0;
   }
 }

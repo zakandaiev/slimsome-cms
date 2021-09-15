@@ -429,6 +429,7 @@ img, svg {
     }
   }*/
   img, svg {
+    max-width: initial;
     height: 1.6rem;
   }
   tbody img, tbody svg {

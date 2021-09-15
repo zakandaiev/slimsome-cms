@@ -36,7 +36,7 @@ $general_earns = $pdo->query("
     ), 0) as all_time_uah
 ")->fetch(PDO::FETCH_ASSOC);
 
-$earns_per_months_rub = $pdo->query("
+/*$earns_per_months_rub = $pdo->query("
   SELECT * FROM (
     SELECT
       SUM(price) as rub_sum, EXTRACT(month FROM cdate) as month, EXTRACT(year FROM cdate) as year
@@ -46,9 +46,32 @@ $earns_per_months_rub = $pdo->query("
     ORDER BY year DESC, month DESC
     LIMIT 6
   ) t1 ORDER BY t1.year, t1.month
+")->fetchAll(PDO::FETCH_ASSOC);*/
+$earns_per_months_rub = $pdo->query("
+  SELECT coalesce(rub_sum, 0) as rub_sum, t2.year, t2.month FROM (
+    SELECT
+      EXTRACT(month FROM cdate) as month, EXTRACT(year FROM cdate) as year, SUM(price) as rub_sum
+    FROM ".$prefix."_payments
+    WHERE status=1 and currency=1
+    GROUP BY year, month
+  ) t1
+  RIGHT JOIN (
+    SELECT EXTRACT(year FROM tt.Date) as year, EXTRACT(month FROM tt.Date) as month
+      FROM (
+          SELECT curdate() - INTERVAL (a.a + (10 * b.a) + (100 * c.a) + (1000 * d.a) ) DAY as Date
+          FROM (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as a
+          CROSS JOIN (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as b
+          CROSS JOIN (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as c
+          CROSS JOIN (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as d
+      ) tt
+      WHERE tt.Date between coalesce((SELECT cdate FROM awesome_payments WHERE status=1 and currency=1 ORDER BY cdate ASC LIMIT 1), (SELECT cdate FROM awesome_payments WHERE status=1 and currency=2 ORDER BY cdate ASC LIMIT 1)) and NOW()
+      ORDER BY year, month
+  ) t2 ON t2.month=t1.month AND t1.year=t2.year
+  WHERE t2.month IS NOT NULL
+  ORDER BY t2.year, t2.month
 ")->fetchAll(PDO::FETCH_ASSOC);
 
-$earns_per_months_uah = $pdo->query("
+/*$earns_per_months_uah = $pdo->query("
   SELECT * FROM (
     SELECT
       SUM(price) as uah_sum, EXTRACT(month FROM cdate) as month, EXTRACT(year FROM cdate) as year
@@ -58,6 +81,30 @@ $earns_per_months_uah = $pdo->query("
     ORDER BY year DESC, month DESC
     LIMIT 6
   ) t1 ORDER BY t1.year, t1.month
+")->fetchAll(PDO::FETCH_ASSOC);*/
+$earns_per_months_uah = $pdo->query("
+  SELECT coalesce(uah_sum, 0) as uah_sum, t2.year, t2.month FROM (
+    SELECT
+      EXTRACT(month FROM cdate) as month, EXTRACT(year FROM cdate) as year, SUM(price) as uah_sum
+    FROM ".$prefix."_payments
+    WHERE status=1 and currency=2
+    GROUP BY year, month
+  ) t1
+  RIGHT JOIN (
+    SELECT EXTRACT(year FROM tt.Date) as year, EXTRACT(month FROM tt.Date) as month
+      FROM (
+          SELECT curdate() - INTERVAL (a.a + (10 * b.a) + (100 * c.a) + (1000 * d.a) ) DAY as Date
+          FROM (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as a
+          CROSS JOIN (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as b
+          CROSS JOIN (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as c
+          CROSS JOIN (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as d
+      ) tt
+      WHERE tt.Date between coalesce((SELECT cdate FROM awesome_payments WHERE status=1 and currency=1 ORDER BY cdate ASC LIMIT 1), (SELECT cdate FROM awesome_payments WHERE status=1 and currency=2 ORDER BY cdate ASC LIMIT 1)) and NOW()
+      GROUP BY year, month
+      ORDER BY year, month
+  ) t2 ON t2.month=t1.month AND t1.year=t2.year
+  WHERE t2.month IS NOT NULL
+  ORDER BY t2.year, t2.month
 ")->fetchAll(PDO::FETCH_ASSOC);
 
 $payments_status = $pdo->query("
