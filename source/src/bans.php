@@ -106,7 +106,7 @@ if (!empty($db_bans) && empty($search_keyword) && empty($_GET["page"])) {
             CROSS JOIN (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as c
             CROSS JOIN (SELECT 0 as a UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) as d
         ) tt
-        WHERE tt.Date between date_sub(NOW(), INTERVAL 4 month) and now()
+        WHERE tt.Date BETWEEN date_sub(NOW(), INTERVAL 4 month) AND NOW()
         GROUP BY year, month
         ORDER BY year, month
     ) t2 ON t2.month=t1.month AND t1.year=t2.year
