@@ -1,15 +1,15 @@
 {
-	"name": "frontend-boilerplate",
-	"version": "2.1.1",
-	"description": "FrontEnd Boilerplate - HTML5 starter for easy building sites using Gulp 4",
+	"name": "slimsome-cms",
+	"version": "1.1.4",
+	"description": "SlimSome CMS is completely free system for easily creating a website for your game project Counter-Strike 1.6",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "github.com/zakandaiev",
-	"license": "MIT",
+	"license": "GPL-3.0",
 	"devDependencies": {
-		"browser-sync": "^2.27.5",
+		"browser-sync": "^2.27.7",
 		"del": "^6.0.0",
 		"gulp": "^4.0.2",
 		"gulp-autoprefixer": "^8.0.0",
@@ -17,13 +17,13 @@
 		"gulp-htmlmin": "^5.0.1",
 		"gulp-imagemin": "^7.1.0",
 		"gulp-rigger": "^0.5.8",
-		"gulp-sass": "^5.0.0",
+		"gulp-sass": "^5.1.0",
 		"gulp-sourcemaps": "^3.0.0",
-		"gulp-terser": "^2.0.1",
-		"sass": "^1.38.0"
+		"gulp-terser": "^2.1.0",
+		"sass": "^1.47.0"
 	},
 	"dependencies": {
-		"chart.js": "^3.5.1",
+		"chart.js": "^3.7.0",
 		"cyrillic-to-translit-js": "^3.1.0",
 		"jquery": "^3.6.0",
 		"medium-zoom": "^1.0.6",
