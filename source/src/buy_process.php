@@ -176,7 +176,7 @@ if (key($_GET) == "LiqPay") {
     $file .= 'ik_am: ' . $dataSet["ik_am"] . ' ? ' . $payment_price . PHP_EOL;
     $file .= 'ik_cur: ' . $dataSet["ik_cur"] . ' ? ' . $payment_currency . PHP_EOL;
     $file .= 'ik_inv_st: ' . $dataSet["ik_inv_st"] . ' ? success' . PHP_EOL . PHP_EOL;
-    file_put_contents(sys_get_temp_dir()."/failed_payments.txt", $file, FILE_APPEND);
+    file_put_contents(getTempDir()."/failed_payments.txt", $file, FILE_APPEND);
     exit();
   }
 } else {

@@ -30,7 +30,7 @@ try {
   $login = ftp_login($ftp_connection, $ftp_login, $ftp_pass);
   ftp_pasv($ftp_connection, true);
 
-  $local_file = sys_get_temp_dir()."/csstats.dat";
+  $local_file = getTempDir()."/csstats.dat";
   $server_file = $GLOBALS["ftp_stats_path"];
 
   ftp_get($ftp_connection, $local_file, $server_file, FTP_BINARY);

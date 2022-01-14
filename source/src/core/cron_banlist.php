@@ -29,7 +29,7 @@ try {
   $login = ftp_login($ftp_connection, $ftp_login, $ftp_pass);
   ftp_pasv($ftp_connection, true);
 
-  $local_file = sys_get_temp_dir()."/fresh_bans.sq3";
+  $local_file = getTempDir()."/fresh_bans.sq3";
   $server_file = $GLOBALS["ftp_bans_path"];
 
   ftp_get($ftp_connection, $local_file, $server_file, FTP_BINARY);

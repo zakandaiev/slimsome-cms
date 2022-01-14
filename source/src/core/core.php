@@ -2,6 +2,11 @@
 
 require_once("validations.php");
 
+function getTempDir() {
+  $doc_root = $_SERVER["DOCUMENT_ROOT"];
+  return substr($doc_root, 0, strpos($doc_root, "data"))."data/tmp";
+}
+
 function getServiceName($id) {
   if (!isset($id)) {
     return "Ошибка: укажите id привилегии";
@@ -691,7 +696,7 @@ function generateUsersIni() {
     $file_content .= $ini_active_state . '"'.$admin_auth.'" "'.$admin["password"].'" "'.$admin["service_flags"].'" "'.$amxx_auth_flag.'" "'.$end_date.'"' . PHP_EOL;
   }
 
-  $file_path = sys_get_temp_dir()."/users.ini";
+  $file_path = getTempDir()."/users.ini";
 
   file_put_contents($file_path, $file_content, LOCK_EX);
 
