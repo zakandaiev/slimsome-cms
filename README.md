@@ -12,7 +12,7 @@
 7. [Редактирование исходного кода](#редактирование-исходного-кода)
 
 ## Живой пример
-* [awesomecs.ru](https://awesomecs.ru)
+* [awesomecs.com](https://awesomecs.com)
 
 ## Скачать
 * Скачать: [последняя версия v1.1.5](https://github.com/zakandaiev/slimsome-cms/files/7873334/slimsome-cms-v1.1.5.zip)
@@ -67,13 +67,13 @@
 6. Перейдите в Профиль и произведите финальную настройку Сайта в соответсвующих разделах.
 7. Создайте CRON задания:
     1. Обновление банлиста
-        * `wget -q -O - https://вашдомен.ru/core/cron_banlist.php?cp=ваш_пароль_от_CRON > /dev/null 2>&1`
+        * `wget -q -O - https://вашдомен.com/core/cron_banlist.php?cp=ваш_пароль_от_CRON > /dev/null 2>&1`
         * рекомендуемый интервал - *каждый час*
     2. Обновление статистики
-        * `wget -q -O - https://вашдомен.ru/core/cron_stats.php?cp=ваш_пароль_от_CRON > /dev/null 2>&1`
+        * `wget -q -O - https://вашдомен.com/core/cron_stats.php?cp=ваш_пароль_от_CRON > /dev/null 2>&1`
         * рекомендуемый интервал - *1 раз в день, в 4:00*
     3. Напоминания покупателям на e-mail об продлении привилегии
-        * `wget -q -O - https://вашдомен.ru/core/cron_service_end_notify.php?cp=ваш_пароль_от_CRON > /dev/null 2>&1`
+        * `wget -q -O - https://вашдомен.com/core/cron_service_end_notify.php?cp=ваш_пароль_от_CRON > /dev/null 2>&1`
         * рекомендуемый интервал - *1 раз в день, в 15:00*
 
 ## Редактирование исходного кода
