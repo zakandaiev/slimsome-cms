@@ -12,7 +12,8 @@
 7. [Редактирование исходного кода](#редактирование-исходного-кода)
 
 ## Живой пример
-* [awesomecs.com](https://awesomecs.com)
+* [old-cs.com](https://old-cs.com/)
+* [awesomecs.com](http://web.archive.org/web/20230129161325/https://awesomecs.ru/)
 
 ## Скачать
 * Скачать: [последняя версия v1.1.5](https://github.com/zakandaiev/slimsome-cms/files/7873334/slimsome-cms-v1.1.5.zip)
