@@ -12,7 +12,6 @@
 7. [Редактирование исходного кода](#редактирование-исходного-кода)
 
 ## Живой пример
-* [old-cs.com](https://old-cs.com/)
 * [awesomecs.com](http://web.archive.org/web/20230129161325/https://awesomecs.ru/)
 
 ## Скачать
